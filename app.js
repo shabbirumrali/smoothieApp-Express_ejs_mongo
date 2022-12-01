@@ -4,6 +4,7 @@ const authRoutes = require('./routes/authRoutes');
 const cookieParser = require('cookie-parser');
 const { requireAuth, checkUser } = require('./middleware/authMiddleware');
 const app = express();
+require('dotenv').config();
 
 // middleware
 app.use(express.static('public'));
@@ -14,7 +15,7 @@ app.use(cookieParser());
 app.set('view engine', 'ejs');
 
 // database connection
-const dbURI = 'mongodb+srv://shabbir:1234@nodejwt.re9kr4c.mongodb.net/jsonwebtoken?retryWrites=true&w=majority';
+const dbURI = process.env.DB_URI;
 mongoose.connect(dbURI, { useNewUrlParser: true, useUnifiedTopology: true, useCreateIndex:true })
   .then((result) => {
     console.log("database connected");
